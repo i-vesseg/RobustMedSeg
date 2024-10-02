@@ -1,3 +1,6 @@
 [submodule "phase1/federated/fedbiomed"]
 	path = phase1/federated/fedbiomed
 	url = https://github.com/manigalati/fedbiomed
+[submodule "MultiVesSeg"]
+	path = MultiVesSeg
+	url = https://github.com/i-vesseg/MultiVesSeg
