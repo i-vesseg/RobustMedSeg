@@ -1,4 +1,4 @@
-from fedbiomed.researcher.experiment import Experiment
+from fedbiomed.fedbiomed.researcher.experiment import Experiment
 import train
 import torch
 from train import MyStrategy
