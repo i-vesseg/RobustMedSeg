@@ -7,64 +7,17 @@ import shutil
 import random
 
 from torch import nn, optim
-#from torch.utils import data
-#import torch.distributed as dist
-#from torchvision import transforms, utils
 from tqdm import tqdm
-
-#from a2v_fed.distributed import (
-#    get_rank,
-#    synchronize,
-#    reduce_loss_dict,
-#    reduce_sum,
-#    get_world_size,
-#)
-#from op import conv2d_gradfix
-#from non_leaking import augment, AdaptiveAugment
 
 from fedbiomed.common.training_plans import TorchTrainingPlan
 from fedbiomed.common.data import DataManager
 from fedbiomed.researcher.experiment import Experiment
 from fedbiomed.researcher.aggregators.fedavg import FedAverage
 from fedbiomed.researcher.strategies.default_strategy import DefaultStrategy
-from a2v_fed.clip import CLIP
+from factory.clip import CLIP
 
 import warnings
 warnings.filterwarnings("ignore")
-
-
-"""def data_sampler(dataset, shuffle, distributed):
-    if distributed:
-        return data.distributed.DistributedSampler(dataset, shuffle=shuffle)
-
-    if shuffle:
-        return data.RandomSampler(dataset)
-
-    else:
-        return data.SequentialSampler(dataset)
-
-def sample_data(loader):
-    while True:
-        for batch in loader:
-            yield batch
-
-def set_grad_none(model, targets):
-    for n, p in model.named_parameters():
-        if n in targets:
-            p.grad = None
-
-def init_optimizer(optimizer):
-    for group in optimizer.param_groups:
-        for p in group['params']:
-            p.grad = p.data.new(p.size()).zero_()
-            p.grad.requires_grad_(False)
-    optimizer.step()"""
-
-"""def partial_load(ckpt, state_dict):
-    #print(ckpt.keys(), len(ckpt.items()), [k for k, v in ckpt.items() if k not in state_dict or v.shape != state_dict[k].shape])
-    ckpt = {k: v for k, v in ckpt.items() if k in state_dict and v.shape == state_dict[k].shape}
-    state_dict.update(ckpt)
-    return state_dict"""
 
 def partial_load(ckpt, state_dict):
     for k, v in list(ckpt.items()):
@@ -184,12 +137,12 @@ class MyRemoteTrainingPlan(TorchTrainingPlan):
             "from torch import optim",
             "from tqdm import tqdm",
             "from torchvision import utils",
-            "from a2v_fed.utils import *",
-            "from a2v_fed.distributed import get_rank, reduce_loss_dict, reduce_sum, get_world_size",
-            "from a2v_fed.non_leaking import AdaptiveAugment, augment",
-            "from a2v_fed.model import Generator, Discriminator",
-            "from a2v_fed.dataset import MultiResolutionDataset",
-            "from a2v_fed.clip import CLIP",
+            "from factory.utils import *",
+            "from factory.distributed import get_rank, reduce_loss_dict, reduce_sum, get_world_size",
+            "from factory.non_leaking import AdaptiveAugment, augment",
+            "from factory.model import Generator, Discriminator",
+            "from factory.dataset import MultiResolutionDataset",
+            "from factory.clip import CLIP",
         ]
 
     class Net(nn.Module):
