@@ -37,7 +37,7 @@ Please refer to the homonymous section in `MultiMedSeg/README.md`.
 
 ### Phase 1
 
-This phase requires one additional step to prepare the training data, which each client must execute by running the following command.
+This phase requires one additional step to prepare the training data, which each client must execute by running the following command:
 
 ```
 python prepare_data.py ${K1_dir}/train/ --out ${D1_dir} --size 512 --label 0
