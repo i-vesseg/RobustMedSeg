@@ -1,9 +1,9 @@
 ## RobustMedSeg &mdash; Official PyTorch Implementation
 
+<div align="justify">
 ![Teaser image](./fed_grid.png)
 **Picture:** <div align="justify">*Comparative analysis of the segmentation results: heart segmentation w/ scanner Siemens (top), vessel segmentation w/ OCTA imagery (center), and brain segmentation w/ PET scans (bottom) using different methods.*</div>
 
-<div align="justify">
 This repository allows users to produce accurate segmentation with minimal training and annotation efforts. It contains the official PyTorch implementation of the following paper:
 </div>
 
