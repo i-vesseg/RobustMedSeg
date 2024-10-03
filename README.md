@@ -45,13 +45,21 @@ python prepare_data.py ${K1_dir}/train/ --out ${D1_dir} --size 512 --label 0
 python prepare_data.py ${Kk_dir}/train/ --out ${Dk_dir} --size 512 --label K-1
 ```
 
+<div align="justify">
+
 At this stage, you are ready to begin the federated training of the multimodal data factory. To configure the multi-centric environment, please consult the [fedbiomed documentation](https://fedbiomed.org/latest/tutorials/installation/1-setting-up-environment/). Once all nodes are operational, the researcher can initiate the training by running:
+
+</div>
 
 ```
 python train.py --size 512 --n_sample 3 --n_domains 3 --augment --num_updates_per_round 2000 --rounds 350 --clip-weight 0
 ```
 
+<div align="justify">
+
 To enhance convergence and smoother integration across different domains, we run a refinement stage of 35 rounds with 200 iterations each:
+
+</div>
 
 ```
 python train.py --size 512 --n_sample 3 --n_domains 3 --augment --num_updates_per_round 200 --rounds 385 --clip-weight 50
