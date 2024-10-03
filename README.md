@@ -37,4 +37,44 @@ Please refer to the homonymous section in `MultiMedSeg/README.md`.
 
 ### Phase 1
 
+This phase requires one additional step to prepare the training data, which each client must execute by running the following command.
+
+```
+python prepare_data.py ${K1_dir}/train/ --out ${D1_dir} --size 512 --label 0
+...
+python prepare_data.py ${Kk_dir}/train/ --out ${Dk_dir} --size 512 --label K-1
+```
+
+At this stage, you are ready to begin the federated training of the multimodal data factory. To configure the multi-centric environment, please consult the [fedbiomed documentation](https://fedbiomed.org/latest/tutorials/installation/1-setting-up-environment/). Once all nodes are operational, the researcher can initiate the training by running:
+
+```
+python train.py --size 512 --n_sample 3 --n_domains 3 --augment --num_updates_per_round 2000 --rounds 350 --clip-weight 0
+```
+
+To enhance convergence and smoother integration across different domains, we run a refinement stage of 35 rounds with 200 iterations each:
+
+```
+python train.py --size 512 --n_sample 3 --n_domains 3 --augment --num_updates_per_round 200 --rounds 385 --clip-weight 50
+```
+
+After the training is completed, you can aggregate the weights from all nodes by using the following command:
+
+```
+python save_global_model.py
+```
+
 ### Phase 2
+
+<div align="justify">
+
+Please refer to the homonymous section in `MultiMedSeg/README.md`. However, note that you may not have permission to use source data during domain adaptation due to privacy constraints. To circumvent this limitation, you can use the data factory to generate synthetic labeled source data. To do so, run the script `generate_volumes.py` included in this repository:
+
+</div>
+
+```
+python generate_volumes.py --ckpt_dir=${SRC_exp_dir} --label=0 --n_volumes=20 --slices_in_one_z=10 --n_segmentation_labels=3 --out_dir=${SRC_fake_dir}
+```
+
+## Running inference
+
+Please refer to the homonymous section in `MultiMedSeg/README.md`.
